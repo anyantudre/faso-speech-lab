@@ -43,6 +43,13 @@ registry.model(Model(
 ))
 
 
+def preload():
+    """Loads every runnable model now. On ZeroGPU, models must reach CUDA at startup, not inside a request."""
+    for m in registry.MODELS.values():
+        if m.task == "tts" and registry.runnable(m, HAS_GPU):
+            importlib.import_module(f".{m.id}", __name__)._load()
+
+
 def run(text: str, model_id: str, voice: str, speed: float, reference: str | None, reference_text: str,
         seed: int = 0) -> dict:
     text = " ".join(text.split())

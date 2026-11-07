@@ -1,8 +1,12 @@
 """Hardware detection, the ZeroGPU decorator and Hub downloads.
 
 `spaces` must be imported before torch for ZeroGPU, so app.py imports this module first."""
+import importlib
 import os
+import subprocess
+import sys
 from functools import cache
+from importlib.util import find_spec
 
 try:
     import spaces
@@ -20,6 +24,13 @@ ZERO_GPU = os.environ.get("SPACES_ZERO_GPU") is not None
 HAS_GPU = ZERO_GPU or torch.cuda.is_available()
 DEVICE = "cuda" if HAS_GPU else "cpu"
 TOKEN = os.environ.get("HF_TOKEN")
+
+# Chatterbox pins gradio 6.8, transformers 5.2 and numpy<2, which clash with the other models. Its real
+# needs are in requirements.txt, so on a GPU it is installed without its own pins.
+CHATTERBOX = "chatterbox-tts @ git+https://github.com/resemble-ai/chatterbox@5de7a54"
+if HAS_GPU and find_spec("chatterbox") is None:
+    subprocess.run([sys.executable, "-m", "pip", "install", "--no-deps", CHATTERBOX], check=False)
+    importlib.invalidate_caches()
 
 
 @cache

@@ -146,6 +146,9 @@ def warm_up():
 
 
 if __name__ == "__main__":
-    if os.environ.get("SPACE_ID") and not runtime.ZERO_GPU:
+    if runtime.ZERO_GPU:  # CUDA emulation: models load onto the GPU here, before the first request
+        tasks.tts.preload()
+        tasks.asr.preload()
+    elif os.environ.get("SPACE_ID"):
         threading.Thread(target=warm_up, daemon=True).start()
     server.launch(server_name="0.0.0.0", show_error=True, footer_links=[])

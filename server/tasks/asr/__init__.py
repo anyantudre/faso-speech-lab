@@ -31,6 +31,12 @@ def _load(repo: str):
     return proc, model
 
 
+def preload():
+    for m in registry.MODELS.values():
+        if m.task == "asr":
+            _load(m.repo)
+
+
 def _words(ids: list[int], probs: list[float], proc) -> list[dict]:
     """Collapse CTC frames into words with a confidence each."""
     tok = proc.tokenizer
