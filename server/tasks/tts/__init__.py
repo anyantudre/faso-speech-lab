@@ -35,6 +35,18 @@ registry.model(Model(
     samples=[f"samples/{i}_model.wav" for i in range(1, 5)],
 ))
 registry.model(Model(
+    id="spark", task="tts", name="Spark-TTS 0.5B", repo="anyantudre/moore-tts-spark", base="SparkAudio/Spark-TTS-0.5B",
+    summary="Qwen-based codec language model that clones a voice from a short clip.",
+    device="gpu", cloning=True, voices=REFERENCES, scores={"test": 1.55, "test_unseen": 1.50}, needs="einx",
+    samples=[f"samples/{i}_model.wav" for i in range(1, 5)],
+))
+registry.model(Model(
+    id="f5", task="tts", name="F5-TTS", repo="anyantudre/moore-tts-f5", base="SWivid/F5-TTS",
+    summary="Flow-matching model that clones a voice from a short clip and its transcript.",
+    device="gpu", cloning=True, voices=REFERENCES, scores={"test": 1.95, "test_unseen": 2.33}, needs="f5_tts",
+    samples=[f"samples/{i}_model.wav" for i in range(1, 5)],
+))
+registry.model(Model(
     id="chatterbox", task="tts", name="Chatterbox", repo="anyantudre/moore-tts-chatterbox",
     base="ResembleAI/chatterbox",
     summary="Chatterbox Multilingual with a Mooré LoRA, clones a voice from a short clip.",

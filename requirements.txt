@@ -8,6 +8,9 @@ kokoro==0.9.4
 pocket-tts
 omnivoice
 peft==0.20.0
+f5-tts==1.1.22
+einx
+einops
 # Chatterbox itself is installed at startup without its pins (see server/runtime.py); these are its real needs.
 s3tokenizer
 diffusers

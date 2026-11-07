@@ -2,7 +2,7 @@
 (mean max-probability of the CTC frames that emitted each word)."""
 import time
 import unicodedata
-from functools import cache
+from functools import cache, lru_cache
 
 import torch
 
@@ -57,14 +57,22 @@ def _words(ids: list[int], probs: list[float], proc) -> list[dict]:
     return words
 
 
-@gpu_task(duration=30)
-def _transcribe(wav, repo):
+def _infer(wav, repo):
     proc, model = _load(repo)
     inputs = proc(wav, sampling_rate=SR, return_tensors="pt").to(DEVICE)
     with torch.no_grad():
         probs = model(**inputs).logits[0].float().softmax(-1)
     best, ids = probs.max(-1)
     return proc.decode(ids), _words(ids.tolist(), best.tolist(), proc)
+
+
+_transcribe = gpu_task(duration=30)(_infer)
+
+
+@lru_cache(maxsize=64)
+def transcript(path: str) -> str:
+    """Text of a clip, for models that need the transcript of their reference. Call it inside a GPU task."""
+    return _infer(audio.read(path, SR, MAX_SECONDS), MODELS_JUDGE)[0]
 
 
 def _norm(text: str) -> str:
