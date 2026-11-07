@@ -1,0 +1,4 @@
+# Extra packages for OmniVoice and Chatterbox. Append to requirements.txt when the Space has a GPU.
+omnivoice
+chatterbox-tts @ git+https://github.com/resemble-ai/chatterbox@5de7a54
+peft==0.20.0

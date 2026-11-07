@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below (in preparation)."
+title: Faso Speech Lab
+authors:
+  - family-names: NYANTUDRE
+    given-names: Wendyellé A. Alban
+    email: nyantudrealban@gmail.com
+license: Apache-2.0
+repository-code: https://github.com/anyantudre/faso-speech-lab
+preferred-citation:
+  type: article
+  title: "Speech Synthesis and Recognition for Mooré"
+  authors:
+    - family-names: NYANTUDRE
+      given-names: Wendyellé A. Alban
+  year: 2026
+  status: preprint
+  notes: In preparation

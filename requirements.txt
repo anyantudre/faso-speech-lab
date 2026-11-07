@@ -1,0 +1,7 @@
+torch
+kokoro==0.9.4
+pocket-tts
+transformers
+soundfile
+soxr
+librosa

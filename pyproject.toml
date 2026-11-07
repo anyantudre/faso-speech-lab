@@ -1,0 +1,19 @@
+[project]
+name = "faso-speech-lab"
+version = "1.0.0"
+description = "Open research lab for Mooré speech models: text to speech, speech to text and a blind listening test."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+authors = [{ name = "Wendyellé A. Alban NYANTUDRE", email = "nyantudrealban@gmail.com" }]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["web"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "BLE", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
