@@ -114,7 +114,7 @@ cd web && npm run lint
 
 ## Deployment
 
-Every push to `main` runs the tests, builds the web app and uploads it to the Space ([deploy.yml](.github/workflows/deploy.yml)). The repository needs an `HF_TOKEN` secret that can write to the Space, and the Space needs its own `HF_TOKEN` secret that can read the models and write to the private dataset.
+Every push to `main` runs the tests, builds the web app and uploads it to the Space ([deploy.yml](.github/workflows/deploy.yml)). The Space runs on ZeroGPU: all models load onto the GPU when it starts, and each request borrows a GPU for a few seconds. The repository needs an `HF_TOKEN` secret that can write to the Space, and the Space needs its own `HF_TOKEN` secret that can read the models and write to the private dataset.
 
 ## Citation
 
