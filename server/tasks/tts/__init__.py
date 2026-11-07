@@ -35,6 +35,11 @@ registry.model(Model(
     samples=[f"samples/{i}_model.wav" for i in range(1, 5)],
 ))
 registry.model(Model(
+    id="mms", task="tts", name="MMS-TTS (multi-speaker)", repo="anyantudre/moore-tts-checkpoints",
+    base="facebook/mms-tts-mos", summary="Small VITS model (36M) fine-tuned on all 13 readers, fast on a CPU.",
+    voices=KOKORO_VOICES, scores={"dev": 14.19},
+))
+registry.model(Model(
     id="spark", task="tts", name="Spark-TTS 0.5B", repo="anyantudre/moore-tts-spark", base="SparkAudio/Spark-TTS-0.5B",
     summary="Qwen-based codec language model that clones a voice from a short clip.",
     device="gpu", cloning=True, voices=REFERENCES, scores={"test": 1.55, "test_unseen": 1.50}, needs="einx",
