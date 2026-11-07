@@ -18,16 +18,21 @@ def _load():
     root = snapshot(REPO)
     sys.path.insert(0, os.path.join(root, "code"))
     import cbx_common
+    from peft import peft_model
     from peft.utils import save_and_load
     from synth import load_model
 
     # PEFT reads the LoRA straight onto the GPU, which ZeroGPU's startup emulation cannot do: read it on
     # the CPU, load_model then moves the merged model to DEVICE.
-    infer, save_and_load.infer_device = save_and_load.infer_device, lambda: "cpu"
+    modules = (peft_model, save_and_load)
+    infer = [m.infer_device for m in modules]
+    for m in modules:
+        m.infer_device = lambda: "cpu"
     try:
         return cbx_common, load_model(Path(root), cbx_common.resolve_base(), DEVICE, "[sw]")
     finally:
-        save_and_load.infer_device = infer
+        for m, f in zip(modules, infer, strict=True):
+            m.infer_device = f
 
 
 @gpu_task(duration=90)
