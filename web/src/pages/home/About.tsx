@@ -1,4 +1,4 @@
-import { ArrowUpRight, FlaskConical } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, FlaskConical } from 'lucide-react'
 import { WithAuthor } from '@/components/Author'
 import { BrandIcon } from '@/components/BrandIcon'
 import { strings, useT } from '@/lib/prefs'
@@ -10,8 +10,8 @@ const S = strings(
     title: 'Independent research, work in progress',
     body: 'Faso Speech Lab is a personal research project by Wendyellé A. Alban NYANTUDRE on speech technology for Mooré. The models are trained on openly available data, shared for non-commercial research, and still experimental. This is not a product.',
     more: 'For mature work on the languages of Burkina Faso, see these two initiatives.',
-    goai: 'Commercial models, production use and collaborations.',
-    burkimbia: 'Open community building datasets and models for the languages of Burkina Faso.',
+    goai: 'Production-grade models, commercial licenses, APIs and collaborations to integrate models into your products.',
+    burkimbia: 'A community initiative working on the languages of Burkina Faso.',
     website: 'Website',
   },
   {
@@ -19,8 +19,8 @@ const S = strings(
     title: 'Recherche indépendante, en cours',
     body: "Faso Speech Lab est un projet de recherche personnel de Wendyellé A. Alban NYANTUDRE sur les technologies de la parole en mooré. Les modèles sont entraînés sur des données librement accessibles, partagés pour la recherche non commerciale, et encore expérimentaux. Ce n'est pas un produit.",
     more: 'Pour des travaux aboutis sur les langues du Burkina Faso, voyez ces deux initiatives.',
-    goai: 'Modèles commerciaux, usage en production et collaborations.',
-    burkimbia: 'Communauté ouverte qui construit des données et des modèles pour les langues du Burkina Faso.',
+    goai: 'Des modèles prêts pour la production, des licences commerciales, des API et des collaborations pour intégrer des modèles à vos produits.',
+    burkimbia: 'Une initiative communautaire sur les langues du Burkina Faso.',
     website: 'Site web',
   },
 )
@@ -32,7 +32,7 @@ export function About() {
   const t = useT(S)
   const orgs = [
     { name: 'GO AI Corporation', text: t.goai, links: [[t.website, LINKS.goai, null], ['Hugging Face', LINKS.goaiHf, 'huggingface']] },
-    { name: 'BurkimbIA', text: t.burkimbia, links: [['GitHub', LINKS.burkimbiaGh, 'github'], ['Hugging Face', LINKS.burkimbia, 'huggingface']] },
+    { name: 'BurkimbIA', text: t.burkimbia, links: [[t.website, LINKS.burkimbiaSite, null], ['Hugging Face', LINKS.burkimbia, 'huggingface']] },
   ] as const
   return (
     <section aria-labelledby="about-title" className="mx-auto max-w-6xl px-4 pt-16 md:pt-20">
@@ -48,10 +48,13 @@ export function About() {
           <p className="mt-2 text-text-2">
             <WithAuthor text={t.body} />
           </p>
-          <p className="mt-3 text-sm text-text-3">{t.more}</p>
+          <p className="mt-4 flex items-start gap-2 rounded-field border border-accent/30 bg-accent-soft px-3.5 py-3 text-sm font-semibold text-accent">
+            <ArrowRight className="mt-0.5 size-4 shrink-0 max-lg:rotate-90" aria-hidden="true" />
+            {t.more}
+          </p>
         </div>
         {orgs.map((o) => (
-          <div key={o.name} className="flex flex-col bg-surface-2 p-5 md:p-6">
+          <div key={o.name} className="flex flex-col bg-surface-2 p-5 shadow-[inset_0_3px_0_var(--accent)] md:p-6">
             <b className="text-lg">{o.name}</b>
             <p className="mt-1.5 text-sm text-text-2">{o.text}</p>
             <div className="mt-auto flex flex-wrap gap-x-5 pt-3">

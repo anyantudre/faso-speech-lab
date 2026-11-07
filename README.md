@@ -17,7 +17,13 @@
 FasoSpeech Lab is where I try out the speech models I train for Mooré, the most widely spoken language of Burkina Faso, and where anyone can try them too. You can type Mooré and hear it read aloud, transcribe a Mooré recording, and, if you speak the language, rate the voices of several models in a blind test that feeds a research paper.
 
 > [!NOTE]
-> It is an independent, non-commercial research project, still in progress, built on openly available data. The text-to-speech models are trained on [MooreSpeechCorporaV2](https://huggingface.co/datasets/anyantudre/MooreSpeechCorporaV2) and evaluated on [MooreSpeechBench](https://huggingface.co/datasets/anyantudre/MooreSpeechBench); both datasets were built with [FasoSpeechCorpora](https://github.com/anyantudre/FasoSpeechCorpora). For production-grade models, commercial licenses, APIs and collaborations to integrate models into your products, see [GO AI Corporation](https://goaicorporation.org). For a community initiative working on the languages of Burkina Faso, see [BurkimbIA](https://github.com/BurkimbIA).
+> It is an independent, non-commercial research project, still in progress, built on openly available data. The text-to-speech models are trained on [MooreSpeechCorporaV2](https://huggingface.co/datasets/anyantudre/MooreSpeechCorporaV2) and evaluated on [MooreSpeechBench](https://huggingface.co/datasets/anyantudre/MooreSpeechBench); both datasets were built with [FasoSpeechCorpora](https://github.com/anyantudre/FasoSpeechCorpora).
+
+> [!IMPORTANT]
+> **For mature work on the languages of Burkina Faso, see these two initiatives.**
+>
+> - **[GO AI Corporation](https://goaicorporation.org)**: production-grade models, commercial licenses, APIs and collaborations to integrate models into your products.
+> - **[BurkimbIA](https://huggingface.co/burkimbia)**: a community initiative working on the languages of Burkina Faso.
 
 ## Demo
 
@@ -96,7 +102,7 @@ set HF_TOKEN=hf_...             # macOS/Linux: export HF_TOKEN=hf_...
 python app.py
 ```
 
-Then open http://localhost:7860. The first run of each model downloads and loads it, which takes a minute or two. OmniVoice and Chatterbox need a GPU: install `requirements-gpu.txt` as well. For frontend work, run `npm run dev` in `web/` while `app.py` runs; Vite forwards the API calls to port 7860.
+Then open http://localhost:7860. The first run of each model downloads and loads it, which takes a minute or two. OmniVoice and Chatterbox only run on a GPU; on a CPU the app shows their recorded samples instead. For frontend work, run `npm run dev` in `web/` while `app.py` runs; Vite forwards the API calls to port 7860.
 
 Tests and linting:
 

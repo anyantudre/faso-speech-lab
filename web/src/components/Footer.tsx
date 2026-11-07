@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { Building2, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { Logo } from './Logo'
 import { BrandIcon } from './BrandIcon'
 import { WithAuthor } from './Author'
@@ -133,13 +133,13 @@ export function Footer() {
       <div className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 py-5 text-center text-xs text-text-3 md:flex-row md:justify-center md:gap-6">
           <span className="font-bold uppercase tracking-wider">{t.other}</span>
-          <a href={LINKS.goai} {...out} className="inline-flex items-center gap-1.5 hover:text-text">
-            <Building2 className="size-3.5" aria-hidden="true" />
+          <a href={LINKS.goaiHf} {...out} className="inline-flex items-center gap-1.5 hover:text-text">
+            <BrandIcon name="huggingface" className="size-3.5" />
             {t.commercial}
             <ExternalLink className="size-3" aria-hidden="true" />
           </a>
-          <a href={LINKS.burkimbiaGh} {...out} className="inline-flex items-center gap-1.5 hover:text-text">
-            <BrandIcon name="github" className="size-3.5" />
+          <a href={LINKS.burkimbia} {...out} className="inline-flex items-center gap-1.5 hover:text-text">
+            <BrandIcon name="huggingface" className="size-3.5" />
             {t.burkimbia}
             <ExternalLink className="size-3" aria-hidden="true" />
           </a>

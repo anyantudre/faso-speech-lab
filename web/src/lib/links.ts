@@ -8,6 +8,6 @@ export const LINKS = {
   goai: 'https://goaicorporation.org',
   goaiHf: 'https://huggingface.co/goaicorp',
   burkimbia: 'https://huggingface.co/burkimbia',
-  burkimbiaGh: 'https://github.com/BurkimbIA',
+  burkimbiaSite: 'https://www.burkimbia.com/',
   licence: 'https://creativecommons.org/licenses/by-nc/4.0/',
 }
