@@ -51,6 +51,20 @@ def revision(repo: str) -> str:
         return ""
 
 
+def repo_module(repo_dir: str, filename: str, name: str):
+    """Imports a model repo's script under its own name: several repos ship a `code/synth.py`."""
+    from importlib.util import module_from_spec, spec_from_file_location
+
+    code = os.path.join(repo_dir, "code")
+    if code not in sys.path:
+        sys.path.insert(0, code)  # for the script's own sibling imports
+    spec = spec_from_file_location(name, os.path.join(code, filename))
+    module = module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 def hub_file(repo: str, filename: str) -> str:
     from huggingface_hub import hf_hub_download
 

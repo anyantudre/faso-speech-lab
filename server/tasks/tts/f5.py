@@ -1,14 +1,12 @@
 """F5-TTS v1 Base fine-tuned for Mooré, through the repo's own code/synth.py (upstream inference, text fed
 as characters). F5 needs the transcript of the reference clip: when none is given, judge 1 writes it."""
-import os
-import sys
 import types
 from functools import cache
 
 import numpy as np
 import torch
 
-from ...runtime import DEVICE, gpu_task, snapshot
+from ...runtime import DEVICE, gpu_task, repo_module, snapshot
 
 REPO = "anyantudre/moore-tts-f5"
 SETTINGS = {"nfe": 32, "cfg": 2.0, "sway": -1.0}  # synth.py defaults, as in the benchmark
@@ -17,8 +15,7 @@ SETTINGS = {"nfe": 32, "cfg": 2.0, "sway": -1.0}  # synth.py defaults, as in the
 @cache
 def _load():
     root = snapshot(REPO)
-    sys.path.insert(0, os.path.join(root, "code"))
-    import synth
+    synth = repo_module(root, "synth.py", "f5_synth")
     from f5_tts.infer.utils_infer import load_vocoder
 
     # Load on the CPU, then move: F5's loader reads weights straight onto CUDA, which ZeroGPU's startup

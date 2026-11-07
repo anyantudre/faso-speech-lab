@@ -1,13 +1,11 @@
 """Chatterbox Multilingual V3 + the Mooré LoRA, following the repo's code/synth.py."""
-import os
-import sys
 from functools import cache
 from pathlib import Path
 
 import numpy as np
 import torch
 
-from ...runtime import DEVICE, gpu_task, snapshot
+from ...runtime import DEVICE, gpu_task, repo_module, snapshot
 
 REPO = "anyantudre/moore-tts-chatterbox"
 SETTINGS = {"temperature": 0.6, "cfg_weight": 0.5, "repetition_penalty": 1.2, "min_p": 0.05, "top_p": 1.0}
@@ -16,11 +14,10 @@ SETTINGS = {"temperature": 0.6, "cfg_weight": 0.5, "repetition_penalty": 1.2, "m
 @cache
 def _load():
     root = snapshot(REPO)
-    sys.path.insert(0, os.path.join(root, "code"))
+    synth = repo_module(root, "synth.py", "chatterbox_synth")
     import cbx_common
     from peft import peft_model
     from peft.utils import save_and_load
-    from synth import load_model
 
     # PEFT reads the LoRA straight onto the GPU, which ZeroGPU's startup emulation cannot do: read it on
     # the CPU, load_model then moves the merged model to DEVICE.
@@ -29,7 +26,7 @@ def _load():
     for m in modules:
         m.infer_device = lambda: "cpu"
     try:
-        return cbx_common, load_model(Path(root), cbx_common.resolve_base(), DEVICE, "[sw]")
+        return cbx_common, synth.load_model(Path(root), cbx_common.resolve_base(), DEVICE, "[sw]")
     finally:
         for m, f in zip(modules, infer, strict=True):
             m.infer_device = f
