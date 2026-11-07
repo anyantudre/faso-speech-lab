@@ -1,5 +1,6 @@
 """MMS-TTS-mos (VITS, 36M) fine-tuned on all 13 readers: the multi-speaker finalist, step 8000 of the
-archived run (moore-tts-checkpoints, mms/b_all). Small enough to run on the CPU."""
+archived run (moore-tts-checkpoints, mms/b_all). Small enough for a CPU. On ZeroGPU it still runs in a GPU task:
+any model work in the main process breaks the GPU workers that follow."""
 import json
 import re
 import unicodedata
@@ -9,7 +10,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from ...runtime import snapshot
+from ...runtime import DEVICE, gpu_task, snapshot
 
 REPO = "anyantudre/moore-tts-checkpoints"
 PATH = "mms/b_all/snapshots/step-008000"
@@ -51,16 +52,17 @@ def _load():
     model = _plain(VitsModel(config))
     model.load_state_dict({k: weights[k] for k in model.state_dict()}, strict=True)
     speakers = json.loads((root / "speakers.json").read_text(encoding="utf-8"))
-    return model.eval(), VitsTokenizer.from_pretrained(root), speakers
+    return model.to(DEVICE).eval(), VitsTokenizer.from_pretrained(root), speakers
 
 
+@gpu_task(duration=20)
 def synthesize(text, voice, speed, reference=None, reference_text=""):
     model, tokenizer, speakers = _load()
     text = to_mms(text)
     if not text:
         raise ValueError("Nothing left to read once the text is reduced to the letters MMS knows.")
-    inputs = tokenizer(text, return_tensors="pt")
+    inputs = tokenizer(text, return_tensors="pt").to(DEVICE)
     model.speaking_rate = speed
     with torch.inference_mode():
         wav = model(**inputs, speaker_id=int(speakers[voice])).waveform[0]
-    return wav.float().numpy().astype(np.float32), model.config.sampling_rate
+    return wav.float().cpu().numpy().astype(np.float32), model.config.sampling_rate

@@ -31,7 +31,7 @@ https://github.com/user-attachments/assets/beadc1a6-be88-48bf-9e9c-e0e4bcbe87fa
 
 ## Features
 
-- Text to speech with four fine-tuned models: Kokoro with 13 voices of the training readers, and Pocket TTS, OmniVoice and Chatterbox, which clone a voice from a short clip. Output is 24 kHz.
+- Text to speech with seven fine-tuned models: Kokoro and MMS-TTS with the 13 voices of the training readers, and Pocket TTS, OmniVoice, Chatterbox, Spark-TTS and F5-TTS, which clone a voice from a short clip.
 - Speech to text: upload or record up to 60 s of Mooré, and each word of the transcript is shaded by how confident the model was.
 - A blind listening test for Mooré speakers, "Rate the voices": the same sentence from two or three models, names hidden, a 1 to 5 score for each and a pick for the best one.
 - Feedback for training: every output can be marked good or not good, with reasons. "Another take" generates the same sentence with a new seed and asks which take is better, which gives preference pairs for tuning. Corrected transcripts are kept for review.
@@ -57,7 +57,10 @@ https://github.com/user-attachments/assets/beadc1a6-be88-48bf-9e9c-e0e4bcbe87fa
 | Text to speech | [Kokoro 82M](https://huggingface.co/anyantudre/moore-tts-kokoro), 13 voices | 0.38 % | CPU |
 | Text to speech | [OmniVoice](https://huggingface.co/anyantudre/moore-tts-omnivoice), voice cloning | 0.90 % | GPU |
 | Text to speech | [Chatterbox](https://huggingface.co/anyantudre/moore-tts-chatterbox), voice cloning | 1.30 % | GPU |
+| Text to speech | [Spark-TTS 0.5B](https://huggingface.co/anyantudre/moore-tts-spark), voice cloning | 1.55 % | GPU |
 | Text to speech | [Pocket TTS](https://huggingface.co/anyantudre/moore-tts-pocket), voice cloning | 1.89 % | CPU |
+| Text to speech | [F5-TTS](https://huggingface.co/anyantudre/moore-tts-f5), voice cloning | 1.95 % | GPU |
+| Text to speech | [MMS-TTS, multi-speaker](https://huggingface.co/anyantudre/moore-tts-checkpoints/tree/main/mms/b_all), 13 voices | 14.19 % (dev) | CPU |
 | Speech to text | [w2v-BERT 2.0 Mooré](https://huggingface.co/anyantudre/mos-w2v-bert-2.0-bench) | 1.30 % (dev) | CPU |
 
 CER is the share of characters an ASR judge gets wrong when it transcribes the synthetic speech; real recordings score 0.54 % on the same test. A score below that of real speech means the judge reads the clip easily, not that it sounds more natural than a person, which is why the rating test exists. The models are released under CC BY-NC 4.0, and access is granted on request on Hugging Face.
