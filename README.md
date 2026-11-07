@@ -16,7 +16,8 @@
 
 FasoSpeech Lab is where I try out the speech models I train for Mooré, the most widely spoken language of Burkina Faso, and where anyone can try them too. You can type Mooré and hear it read aloud, transcribe a Mooré recording, and, if you speak the language, rate the voices of several models in a blind test that feeds a research paper.
 
-It is an independent, non-commercial research project, still in progress, built on openly available data. The text-to-speech models are trained on [MooreSpeechCorporaV2](https://huggingface.co/datasets/anyantudre/MooreSpeechCorporaV2) and evaluated on [MooreSpeechBench](https://huggingface.co/datasets/anyantudre/MooreSpeechBench); both datasets were built with [FasoSpeechCorpora](https://github.com/anyantudre/FasoSpeechCorpora). For production-grade models, commercial licenses, APIs and collaborations to integrate models into your products, see [GO AI Corporation](https://goaicorporation.org). For a community initiative working on the languages of Burkina Faso, see [BurkimbIA](https://github.com/BurkimbIA).
+> [!NOTE]
+> It is an independent, non-commercial research project, still in progress, built on openly available data. The text-to-speech models are trained on [MooreSpeechCorporaV2](https://huggingface.co/datasets/anyantudre/MooreSpeechCorporaV2) and evaluated on [MooreSpeechBench](https://huggingface.co/datasets/anyantudre/MooreSpeechBench); both datasets were built with [FasoSpeechCorpora](https://github.com/anyantudre/FasoSpeechCorpora). For production-grade models, commercial licenses, APIs and collaborations to integrate models into your products, see [GO AI Corporation](https://goaicorporation.org). For a community initiative working on the languages of Burkina Faso, see [BurkimbIA](https://github.com/BurkimbIA).
 
 ## Demo
 
